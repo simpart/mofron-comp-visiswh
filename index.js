@@ -16,11 +16,11 @@ mf.comp.Visiswh = class extends mf.Component {
      * 
      * @param po paramter or option
      */
-    constructor (po) {
+    constructor (po, p2) {
         try {
             super();
             this.name('Visiswh');
-            this.prmOpt(po);
+            this.prmOpt(po, p2);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -32,11 +32,14 @@ mf.comp.Visiswh = class extends mf.Component {
      * 
      * @param prm : 
      */
-    initDomConts (swh) {
+    initDomConts (swh, tgt) {
         try {
             super.initDomConts();
             if (undefined !== swh) {
                 this.switch(swh);
+            }
+            if (undefined !== tgt) {
+                this.swhTarget(tgt);
             }
         } catch (e) {
             console.error(e.stack);
@@ -98,11 +101,16 @@ mf.comp.Visiswh = class extends mf.Component {
                 return (undefined === this.m_swhtgt) ? null : this.m_swhtgt;
             }
             /* setter */
-            if (true !== mf.func.isInclude(prm, 'Component')) {
-                throw new Error('invalid parameter');
-            }
             if (undefined === this.m_swhtgt) {
                 this.m_swhtgt = new Array();
+            }
+            
+            if (true === Array.isArray(prm)) {
+                for (let pidx in prm) {
+                    this.swhTarget(prm[pidx]);
+                }
+            } else if (true !== mf.func.isInclude(prm, 'Component')) {
+                throw new Error('invalid parameter');
             }
             this.m_swhtgt.push(prm);
         } catch (e) {
