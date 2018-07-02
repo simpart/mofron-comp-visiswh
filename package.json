@@ -1,6 +1,6 @@
 {
   "name": "mofron-comp-visiswh",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "'visible' function switch component for mofron",
   "main": "index.js",
   "scripts": {

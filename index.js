@@ -71,13 +71,7 @@ mf.comp.Visiswh = class extends mf.Component {
                  new Click(
                      (cmp, swh) => {
                          try {
-                             let tgt = swh.swhTarget();
                              let sts = swh.status();
-                             if (null !== tgt) {
-                                 for (let tidx in tgt) {
-                                     tgt[tidx].visible(!sts);
-                                 }
-                             }
                              swh.status(!sts);
                          } catch (e) {
                              console.error(e.stack);
@@ -128,6 +122,12 @@ mf.comp.Visiswh = class extends mf.Component {
             /* setter */
             if ('boolean' !== typeof prm) {
                 throw new Error('invalid parameter');
+            }
+            let tgt = this.swhTarget();
+            if (null !== tgt) {
+                for (let tidx in tgt) {
+                    tgt[tidx].visible(prm);
+                }
             }
             this.m_swhsts = prm;
         } catch (e) {
